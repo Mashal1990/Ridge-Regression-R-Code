@@ -1,4 +1,5 @@
-#R-Code for Heteroscedastic Ridge estimators/ Proposed VS existing Hetro RR
+#R-Code for Heteroscedastic Ridge estimators (RR)
+#Proposed vs existing Hetroscedastic RR
 #################Mashal########################
 ###Supervisor: Dr Syed Muhammad Asim ##########
 ###Cosupervisor: Dr. Muhammad Suhail ####
