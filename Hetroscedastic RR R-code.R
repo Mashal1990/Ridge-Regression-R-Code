@@ -298,7 +298,7 @@ for(b in 1:length(pred)){
   MSE.p[,,,b]=MSE.n
 } #End of predictors loop
 
-col.names=c("Repl1","Repl2","Repl3","Repl4")
+col.names=c("Rep1","Rep2","Rep3","Rep4")
 row.names=c("OLS","GH","MGH","DRR","DAR_HC4m","DAR_MHC4m","DAR_HA",
             "LW_NHC2","LW_NHC3","LW_NHC4","LW_NHC4m",
             "KBG_NHC2","KBG_NHC3","KBG_NHC4","KBG_NHC4m")
