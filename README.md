@@ -1,1 +1,1 @@
-# Ridge-Regression-R-Code
+# Hetroscedastic Ridge-Regression-R-Code
