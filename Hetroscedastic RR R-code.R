@@ -1,8 +1,6 @@
 #R-Code for Heteroscedastic Ridge estimators (RR)
 #Proposed vs existing Hetroscedastic RR
-#################Mashal########################
-###Supervisor: Dr Syed Muhammad Asim ##########
-###Cosupervisor: Dr. Muhammad Suhail ####
+#Authors: 1. Mashal, 2. Dr Syed Muhammad Asim and 3. Dr. Muhammad Suhail
 
 rm(list=ls())
 set.seed(1988)
@@ -35,6 +33,7 @@ for(b in 1:length(pred)){
       x=matrix(0,n,p)
       
       #incorporating varying levels of correlation
+      #Note, this code is for only P=10, researchers can choose the following terms accordinlgy
       
       x[,1]=sqrt(1-corr[1]^2)*z.sn[,1]+corr[1]*z.sn[,p]
       x[,2]=sqrt(1-corr[2]^2)*z.sn[,2]+corr[2]*z.sn[,p]
@@ -76,7 +75,6 @@ for(b in 1:length(pred)){
       K13=rep(0,N)
       K14=rep(0,N)
       
-      
       #Defining matrices
       alphahat.ols=matrix(0,nrow = p,ncol = N)
       alphahat.AGH=matrix(0,nrow = p,ncol = N)
@@ -96,12 +94,10 @@ for(b in 1:length(pred)){
       alphahat.KBG.HC4m=matrix(0,nrow = p,ncol = N)
       
       #For Generating Heteroscedasticity
-      
       a.hetro=0.0692      
       
       #For low Low levels of hetro=0.0260,Med=0.0692 and High=0.08432.
-      #Note that the researchers needs to choose the a.hetro value so that delta.h close
-      #to 4 (low), 36 (medium) and 100 (high)
+      #Note that the researchers needs to choose the a.hetro value so that delta.h close to 4 (low), 36 (medium) and 100 (high)
       
       x.row=apply(x, 1, sum)
       sigma.i=exp(a.hetro*x.row)
@@ -193,9 +189,9 @@ for(b in 1:length(pred)){
         T.hatro=solve(lam+I*K6[i])%*%lam
         alphahat.HSL.IR_scale[,i]=T.hatro%*%alphahat.ols[,i]
         
-        #Proposed Hetroscedastic RR estimators
+        ######Proposed Hetroscedastic RR estimators########
         
-        # Proposed Estimators based on E2
+        # Proposed Estimators based on HC2
         HC2=P%*%E2%*%omga%*%t(P)
         Sci_2=HC2%*%W
         sigma.hatro1=sum(diag(Sci_2))
@@ -213,7 +209,7 @@ for(b in 1:length(pred)){
         alphahat.KBG.HC2[,i]=T.hatro%*%alphahat.ols[,i]
         
         
-        # Proposed Estimators based on E3
+        # Proposed Estimators based on HC3
         HC3=P%*%E3%*%omga%*%t(P)
         Sci_3=HC3%*%W
         sigma.hatro2=sum(diag(Sci_3))
@@ -231,7 +227,7 @@ for(b in 1:length(pred)){
         alphahat.KBG.HC3[,i]=T.hatro%*%alphahat.ols[,i]
         
         
-        # Proposed Estimators based on E4
+        # Proposed Estimators based on HC4
         HC4=P%*%E4%*%omga%*%t(P)
         Sci_4=HC4%*%W
         sigma.hatro3=sum(diag(Sci_4))
@@ -250,7 +246,7 @@ for(b in 1:length(pred)){
         alphahat.KBG.HC4[,i]=T.hatro%*%alphahat.ols[,i]
         
         
-        # Proposed Estimators based on E4m
+        # Proposed Estimators based on HC4m
         HC4m=P%*%E4m%*%omga%*%t(P)
         Sci_4m=HC4m%*%W
         sigma.hatro4=sum(diag(Sci_4m))
@@ -260,7 +256,6 @@ for(b in 1:length(pred)){
         K13[i]=LW.HC4m
         T.hatro=solve(lam+I*K13[i])%*%lam
         alphahat.LW.HC4m[,i]=T.hatro%*%alphahat.ols[,i]
-        
         
         # Proposed Hetroscedastic based on Kibria 2003 GM, Ridge estimator
         KBG.HC4m= sigma.hatro4/(prod(alpha.hat^2))^(1/p)
@@ -313,5 +308,5 @@ matrix.names3=c("10")
 dimnames(MSE.p)=list(row.names,col.names,matrix.names2,matrix.names3)
 write.csv(MSE.p,file = "Enter the path to save the output")
 
-delta.h #this term needs to be 4, 36 and 100 for incorporating required levels of hetroscedasticty
+delta.h           #this term needs to be 4, 36 and 100 for incorporating required levels of hetroscedasticty
 
