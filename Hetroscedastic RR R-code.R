@@ -7,7 +7,7 @@ set.seed(1988)
 library(MASS)
 
 ssize=c(20,50,100)
-pred=c(10)
+pred=c(4)
 corr=c(0.90,0.95,0.99,0.999)
 
 MSE.r=matrix(0,15,length(corr))
@@ -33,18 +33,12 @@ for(b in 1:length(pred)){
       x=matrix(0,n,p)
       
       #incorporating varying levels of correlation
-      #Note, this code is for only P=10, researchers can choose the following terms accordinlgy
+      #Note, this code is for only p = 4, researchers can choose the following X[,] terms accordinlgy
       
       x[,1]=sqrt(1-corr[1]^2)*z.sn[,1]+corr[1]*z.sn[,p]
       x[,2]=sqrt(1-corr[2]^2)*z.sn[,2]+corr[2]*z.sn[,p]
       x[,3]=sqrt(1-corr[3]^2)*z.sn[,3]+corr[3]*z.sn[,p]
       x[,4]=sqrt(1-corr[4]^2)*z.sn[,4]+corr[4]*z.sn[,p]
-      x[,5]=sqrt(1-corr[1]^2)*z.sn[,5]+corr[1]*z.sn[,p]
-      x[,6]=sqrt(1-corr[2]^2)*z.sn[,6]+corr[2]*z.sn[,p]
-      x[,7]=sqrt(1-corr[3]^2)*z.sn[,7]+corr[3]*z.sn[,p]
-      x[,8]=sqrt(1-corr[4]^2)*z.sn[,8]+corr[4]*z.sn[,p]
-      x[,9]=sqrt(1-corr[3]^2)*z.sn[,9]+corr[3]*z.sn[,p]
-      x[,10]=sqrt(1-corr[4]^2)*z.sn[,10]+corr[4]*z.sn[,p]
       
       x=scale(x,center = TRUE,scale = TRUE)    #standardizing x-matrix
       ev=eigen(cor(x))
@@ -94,10 +88,10 @@ for(b in 1:length(pred)){
       alphahat.KBG.HC4m=matrix(0,nrow = p,ncol = N)
       
       #For Generating Heteroscedasticity
-      a.hetro=0.0692      
+      a.hetro=0.084      
       
-      #For low Low levels of hetro=0.0260,Med=0.0692 and High=0.08432.
-      #Note that the researchers needs to choose the a.hetro value so that delta.h close to 4 (low), 36 (medium) and 100 (high)
+      #For low Low levels of heteroscedasticity, a.hetro=0.084,Med=0.212,High=0.252
+      #Note that researchers need to choose the a.hetro value such that delta.h is approximately 4 (low), 36 (medium), and 100 (high).
       
       x.row=apply(x, 1, sum)
       sigma.i=exp(a.hetro*x.row)
@@ -304,7 +298,7 @@ row.names=c("OLS","GH","MGH","DRR","DAR_HC4m","DAR_MHC4m","DAR_HA",
             "KBG_NHC2","KBG_NHC3","KBG_NHC4","KBG_NHC4m")
 
 matrix.names2=c("20","50","100")
-matrix.names3=c("10")
+matrix.names3=c("4")
 dimnames(MSE.p)=list(row.names,col.names,matrix.names2,matrix.names3)
 write.csv(MSE.p,file = "Enter the path to save the output")
 
