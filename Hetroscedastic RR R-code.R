@@ -146,8 +146,8 @@ for(b in 1:length(pred)){
         u1=min(4,(n*Hjj/p))
         E4=diag(1/(1-Hjj)^u1)
         u2=min(1.0,(n*Hjj/p))+min(1.5,(n*Hjj/p))
-        E4m=diag(1/(1-Hjj)^u2)
-        
+        E4m=diag(1/(1-Hjj)^u2)                      #Note: E2,E3,E4 and E4m are different diagonal matrices used in HCCM
+                                                    # notations used in article for E2,...,E4m are Z2,Z3,Z4,Z4m.
         W=t(x)%*%x
         
         # Maximum of Diagonal Values
